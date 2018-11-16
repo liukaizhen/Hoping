@@ -44,6 +44,9 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
 
+    //timber
+    api "com.jakewharton.timber:timber:$rootProject.timberVersion"
+
     //Dagger2
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     api "com.google.dagger:dagger:$rootProject.daggerVersion"

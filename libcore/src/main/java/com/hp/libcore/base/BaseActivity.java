@@ -5,15 +5,26 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-
-import com.hp.libcore.tools.Util;
+import com.hp.libcore.mvp.IPresenter;
+import com.hp.libcore.tools.Utils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends RxAppCompatActivity {
+public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActivity {
+    protected final String TAG = this.getClass().getSimpleName();
+    @Inject @Nullable
+    protected P mPresenter;//当前页面逻辑简单,Presenter 可以为 null
+
+    /**
+     * 返回当前页面布局
+     * @return
+     */
+    protected abstract int layoutID();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,11 +33,21 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    /**
-     * 返回当前页面布局
-     * @return
-     */
-    protected abstract int layoutID();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null){
+            mPresenter.onDestroy();//释放资源
+        }
+        this.mPresenter = null;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Utils.cancelToast();
+    }
 
     /**
      * 检查权限
@@ -100,11 +121,5 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             }
         }
         return needRequestPermissionList;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Util.cancelToast();
     }
 }

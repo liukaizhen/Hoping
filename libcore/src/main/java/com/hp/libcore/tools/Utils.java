@@ -2,22 +2,31 @@ package com.hp.libcore.tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.hp.libcore.base.IApp;
+import com.hp.libcore.di.AppComponent;
 
 /**
  * 工具类
  */
-public class Util {
+public class Utils {
     private static Context context;
     private static Toast mToast;
 
-    private Util() {
+    private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -26,7 +35,7 @@ public class Util {
      * @param context
      */
     public static void init(Context context) {
-        Util.context = context.getApplicationContext();
+        Utils.context = context.getApplicationContext();
     }
 
     /**
@@ -38,6 +47,13 @@ public class Util {
         throw new NullPointerException("u should init first");
     }
 
+    public static AppComponent obtainAppComponent(){
+        PredictUtil.checkNotNull(context, "%s cannot be null", Context.class.getName());
+        PredictUtil.checkState(context.getApplicationContext() instanceof IApp,
+                "%s must be implements %s", context.getApplicationContext().getClass().getName(), IApp.class.getName());
+        return ((IApp) context.getApplicationContext()).obtainAppComponent();
+    }
+
     /**
      * 显示Toast
      * @param content
@@ -46,7 +62,7 @@ public class Util {
         if (TextUtils.isEmpty(content))
             return;
         if (mToast == null) {
-            mToast = Toast.makeText(Util.getAPPContext(), content, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(Utils.getAPPContext(), content, Toast.LENGTH_SHORT);
         } else {
             mToast.setText(content);
             mToast.setDuration(Toast.LENGTH_SHORT);
@@ -178,6 +194,36 @@ public class Util {
         activity.getWindow().setAttributes(attrs);
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    /**
+     * 状态栏字体变成黑字，只适用于6.0以上
+     * @param activity
+     */
+    public static void statusBarLight(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Window window = activity.getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
+
+    /**
+     * View获取Activity的工具
+     * @param view view
+     * @return Activity
+     */
+    public static
+    @NonNull
+    Activity getAttachActivity(View view) {
+        Context context = view.getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        throw new IllegalStateException("View " + view + " is not attached to an Activity");
     }
 
 }
