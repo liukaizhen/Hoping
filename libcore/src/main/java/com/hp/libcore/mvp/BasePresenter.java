@@ -1,6 +1,8 @@
 package com.hp.libcore.mvp;
 
 
+import android.support.annotation.Nullable;
+
 import com.hp.libcore.tools.PredictUtil;
 
 /**
@@ -10,8 +12,8 @@ import com.hp.libcore.tools.PredictUtil;
  */
 public class BasePresenter<M extends IModel, V extends IView> implements IPresenter{
     protected final String TAG = this.getClass().getSimpleName();
-    protected M mModel;
-    protected V mView;
+    protected @Nullable M mModel;
+    protected @Nullable V mView;
 
     /**
      * 如果当前页面同时需要 Model 层和 View 层,则使用此构造函数(默认)

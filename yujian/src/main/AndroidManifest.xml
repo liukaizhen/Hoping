@@ -10,7 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BaseTheme">
-        <activity android:name=".MainActivity"/>
+
+        <meta-data android:name="com.hp.yujian.YjConfig" android:value="globalConfig"/>
+
+        <activity android:name=".main.MainActivity"/>
 
     </application>
 </manifest>

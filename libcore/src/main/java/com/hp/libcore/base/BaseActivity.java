@@ -11,13 +11,11 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
-    @Inject @Nullable
+    @Nullable
     protected P mPresenter;//当前页面逻辑简单,Presenter 可以为 null
 
     /**
@@ -26,11 +24,23 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
      */
     protected abstract int layoutID();
 
+    /**
+     * 初始化
+     * @param savedInstanceState
+     */
+    protected abstract void initialize(@Nullable Bundle savedInstanceState);
+
+    protected P createPresenter(){
+        return null;
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layoutID());
         ButterKnife.bind(this);
+        mPresenter = createPresenter();
+        initialize(savedInstanceState);
     }
 
 

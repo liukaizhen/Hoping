@@ -5,9 +5,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Http 请求和响应结果处理 实现类
+ * Http 请求和响应结果处理 默认实现类
  */
-public class HttpHandlerImpl implements HttpHandler {
+public class DefaultHttpHandler implements HttpHandler {
 
     /**
      * 这里可以在请求服务器之前拿到 {@link Request}, 做一些操作比如给 {@link Request}

@@ -9,16 +9,13 @@ import android.view.ViewGroup;
 
 import com.hp.libcore.mvp.IPresenter;
 import com.trello.rxlifecycle2.components.support.RxFragment;
-
-import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public abstract class BaseFragment<P extends IPresenter> extends RxFragment {
     protected final String TAG = this.getClass().getSimpleName();
     private Unbinder unbinder;
-    @Inject @Nullable
+    @Nullable
     protected P mPresenter;//当前页面逻辑简单,Presenter 可以为 null
 
     /**
@@ -27,11 +24,18 @@ public abstract class BaseFragment<P extends IPresenter> extends RxFragment {
      */
     protected abstract int layoutID();
 
+    /**
+     * 初始化
+     * @param savedInstanceState
+     */
+    protected abstract void initialize(@Nullable Bundle savedInstanceState);
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(layoutID(), container, false);
         unbinder = ButterKnife.bind(this, rootView);
+        initialize(savedInstanceState);
         return rootView;
     }
 

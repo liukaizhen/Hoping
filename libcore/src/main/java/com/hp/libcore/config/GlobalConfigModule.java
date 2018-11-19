@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.hp.libcore.di.AppModule;
 import com.hp.libcore.http.HttpHandler;
-import com.hp.libcore.http.HttpHandlerImpl;
+import com.hp.libcore.http.DefaultHttpHandler;
 import com.hp.libcore.http.RequestInterceptor;
 import com.hp.libcore.http.log.DefaultFormatPrinter;
 import com.hp.libcore.http.log.FormatPrinter;
@@ -79,7 +79,7 @@ public class GlobalConfigModule {
     @Provides
     @Nullable
     HttpHandler provideHttpHandler() {
-        return mHandler == null ? new HttpHandlerImpl() : mHandler;
+        return mHandler == null ? new DefaultHttpHandler() : mHandler;
     }
 
     @Singleton

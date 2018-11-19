@@ -13,7 +13,7 @@ import java.util.List;
  * 引用自: <a href="https://github.com/JessYanCoding"/>
  */
 public final class ManifestParser {
-    private static final String MODULE_VALUE = "ConfigModule";
+    private static final String MODULE_VALUE = "globalConfig";
 
     private final Context context;
 
