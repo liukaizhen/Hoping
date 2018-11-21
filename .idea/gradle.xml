@@ -8,9 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/homemodule" />
             <option value="$PROJECT_DIR$/libcore" />
-            <option value="$PROJECT_DIR$/yujian" />
+            <option value="$PROJECT_DIR$/simpleapp" />
+            <option value="$PROJECT_DIR$/simplemodule" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

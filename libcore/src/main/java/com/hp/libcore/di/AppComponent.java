@@ -7,8 +7,6 @@ import com.hp.libcore.AppDelegate;
 import com.hp.libcore.config.GlobalConfigModule;
 import com.hp.libcore.http.IRepositoryManager;
 
-import java.util.concurrent.ExecutorService;
-
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
@@ -16,7 +14,7 @@ import dagger.Component;
 import okhttp3.OkHttpClient;
 
 @Singleton
-@Component(modules = {AppModule.class,GlobalConfigModule.class})
+@Component(modules = {SingletonModule.class,GlobalConfigModule.class})
 public interface AppComponent {
 
     /**

@@ -3,7 +3,7 @@ package com.hp.libcore.config;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.hp.libcore.di.AppModule;
+import com.hp.libcore.di.SingletonModule;
 import com.hp.libcore.http.HttpHandler;
 import com.hp.libcore.http.DefaultHttpHandler;
 import com.hp.libcore.http.RequestInterceptor;
@@ -35,8 +35,8 @@ public class GlobalConfigModule {
     private HttpUrl mBaseUrl;
     private List<Interceptor> mInterceptors;
     private HttpHandler mHandler;
-    private AppModule.RetrofitConfiguration mRetrofitConfiguration;
-    private AppModule.OkHttpConfiguration mOkHttpConfiguration;
+    private SingletonModule.RetrofitConfiguration mRetrofitConfiguration;
+    private SingletonModule.OkHttpConfiguration mOkHttpConfiguration;
     private RequestInterceptor.Level mPrintHttpLogLevel;
     private FormatPrinter mFormatPrinter;
     private ExecutorService mExecutorService;
@@ -85,14 +85,14 @@ public class GlobalConfigModule {
     @Singleton
     @Provides
     @Nullable
-    AppModule.RetrofitConfiguration provideRetrofitConfiguration() {
+    SingletonModule.RetrofitConfiguration provideRetrofitConfiguration() {
         return mRetrofitConfiguration;
     }
 
     @Singleton
     @Provides
     @Nullable
-    AppModule.OkHttpConfiguration provideOkHttpConfiguration() {
+    SingletonModule.OkHttpConfiguration provideOkHttpConfiguration() {
         return mOkHttpConfiguration;
     }
 
@@ -125,8 +125,8 @@ public class GlobalConfigModule {
         private HttpUrl baseUrl;
         private List<Interceptor> interceptors;
         private HttpHandler handler;
-        private AppModule.RetrofitConfiguration retrofitConfiguration;
-        private AppModule.OkHttpConfiguration okHttpConfiguration;
+        private SingletonModule.RetrofitConfiguration retrofitConfiguration;
+        private SingletonModule.OkHttpConfiguration okHttpConfiguration;
         private RequestInterceptor.Level printHttpLogLevel;
         private FormatPrinter formatPrinter;
         private ExecutorService executorService;
@@ -156,12 +156,12 @@ public class GlobalConfigModule {
         }
 
 
-        public Builder retrofitConfiguration(AppModule.RetrofitConfiguration retrofitConfiguration) {
+        public Builder retrofitConfiguration(SingletonModule.RetrofitConfiguration retrofitConfiguration) {
             this.retrofitConfiguration = retrofitConfiguration;
             return this;
         }
 
-        public Builder okHttpConfiguration(AppModule.OkHttpConfiguration okHttpConfiguration) {
+        public Builder okHttpConfiguration(SingletonModule.OkHttpConfiguration okHttpConfiguration) {
             this.okHttpConfiguration = okHttpConfiguration;
             return this;
         }

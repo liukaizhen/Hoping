@@ -30,6 +30,11 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
      */
     protected abstract void initialize(@Nullable Bundle savedInstanceState);
 
+    /**
+     * 子页面覆盖该方法创建Presenter
+     * 如果页面简单不需要Presenter可以不覆盖
+     * @return
+     */
     protected P createPresenter(){
         return null;
     };

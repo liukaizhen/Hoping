@@ -24,8 +24,7 @@ public class BaseApplication extends MultiDexApplication implements IApp{
     public void onCreate() {
         super.onCreate();
         Utils.init(this);
-        if (mAppDelegate != null)
-            this.mAppDelegate.onCreate(this);
+        if (mAppDelegate != null) this.mAppDelegate.onCreate(this);
         initTodo();
     }
 
