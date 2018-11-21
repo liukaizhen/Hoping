@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.hp.libcore.http.HttpHandler;
 import com.hp.libcore.http.IRepositoryManager;
 import com.hp.libcore.http.RepositoryManager;
-import com.hp.libcore.http.RequestInterceptor;
+import com.hp.libcore.http.log.LoggerInterceptor;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,7 +40,7 @@ public abstract class SingletonModule {
     abstract IRepositoryManager repositoryManager(RepositoryManager repository);
 
     @Binds
-    abstract Interceptor interceptor(RequestInterceptor interceptor);
+    abstract Interceptor interceptor(LoggerInterceptor interceptor);
 
     @Singleton
     @Provides

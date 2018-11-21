@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.erly.simplemodule.SimpleModuleActivity;
+import com.erly.simplemodule.simple.SimpleModuleActivity;
 
 /**
  * 业务模块单独调试时的启动页面

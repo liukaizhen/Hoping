@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/BaseTheme">
 
+        <meta-data android:name="debug.DebugConfig"
+            android:value="globalConfig"/>
+
         <activity android:name="debug.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.erly.simplemodule.SimpleModuleActivity"
+        <activity android:name="com.erly.simplemodule.simple.SimpleModuleActivity"
             android:screenOrientation="portrait"/>
     </application>
 </manifest>

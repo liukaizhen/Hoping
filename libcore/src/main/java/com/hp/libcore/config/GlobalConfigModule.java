@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.hp.libcore.di.SingletonModule;
 import com.hp.libcore.http.HttpHandler;
 import com.hp.libcore.http.DefaultHttpHandler;
-import com.hp.libcore.http.RequestInterceptor;
+import com.hp.libcore.http.log.LoggerInterceptor;
 import com.hp.libcore.http.log.DefaultFormatPrinter;
 import com.hp.libcore.http.log.FormatPrinter;
 import com.hp.libcore.tools.PredictUtil;
@@ -37,7 +37,7 @@ public class GlobalConfigModule {
     private HttpHandler mHandler;
     private SingletonModule.RetrofitConfiguration mRetrofitConfiguration;
     private SingletonModule.OkHttpConfiguration mOkHttpConfiguration;
-    private RequestInterceptor.Level mPrintHttpLogLevel;
+    private LoggerInterceptor.Level mPrintHttpLogLevel;
     private FormatPrinter mFormatPrinter;
     private ExecutorService mExecutorService;
 
@@ -98,8 +98,8 @@ public class GlobalConfigModule {
 
     @Singleton
     @Provides
-    RequestInterceptor.Level providePrintHttpLogLevel() {
-        return mPrintHttpLogLevel == null ? RequestInterceptor.Level.ALL : mPrintHttpLogLevel;
+    LoggerInterceptor.Level providePrintHttpLogLevel() {
+        return mPrintHttpLogLevel == null ? LoggerInterceptor.Level.ALL : mPrintHttpLogLevel;
     }
 
     @Singleton
@@ -127,7 +127,7 @@ public class GlobalConfigModule {
         private HttpHandler handler;
         private SingletonModule.RetrofitConfiguration retrofitConfiguration;
         private SingletonModule.OkHttpConfiguration okHttpConfiguration;
-        private RequestInterceptor.Level printHttpLogLevel;
+        private LoggerInterceptor.Level printHttpLogLevel;
         private FormatPrinter formatPrinter;
         private ExecutorService executorService;
 
@@ -167,8 +167,8 @@ public class GlobalConfigModule {
         }
 
 
-        public Builder printHttpLogLevel(RequestInterceptor.Level printHttpLogLevel) {//是否让框架打印 Http 的请求和响应信息
-            this.printHttpLogLevel = PredictUtil.checkNotNull(printHttpLogLevel, "The printHttpLogLevel can not be null, use RequestInterceptor.Level.NONE instead.");
+        public Builder printHttpLogLevel(LoggerInterceptor.Level printHttpLogLevel) {//是否让框架打印 Http 的请求和响应信息
+            this.printHttpLogLevel = PredictUtil.checkNotNull(printHttpLogLevel, "The printHttpLogLevel can not be null, use LoggerInterceptor.Level.NONE instead.");
             return this;
         }
 

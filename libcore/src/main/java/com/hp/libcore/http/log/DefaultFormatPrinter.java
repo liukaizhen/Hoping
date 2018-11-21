@@ -2,7 +2,6 @@ package com.hp.libcore.http.log;
 
 import android.text.TextUtils;
 
-import com.hp.libcore.http.RequestInterceptor;
 import com.hp.libcore.tools.CharacterUtil;
 import com.hp.libcore.tools.LogUtil;
 
@@ -94,8 +93,8 @@ public class DefaultFormatPrinter implements FormatPrinter {
     @Override
     public void printJsonResponse(long chainMs, boolean isSuccessful, int code, String headers, MediaType contentType,
                                   String bodyString, List<String> segments, String message, final String responseUrl) {
-        bodyString = RequestInterceptor.isJson(contentType) ? CharacterUtil.jsonFormat(bodyString)
-                : RequestInterceptor.isXml(contentType) ? CharacterUtil.xmlFormat(bodyString) : bodyString;
+        bodyString = LoggerInterceptor.isJson(contentType) ? CharacterUtil.jsonFormat(bodyString)
+                : LoggerInterceptor.isXml(contentType) ? CharacterUtil.xmlFormat(bodyString) : bodyString;
 
         final String responseBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + bodyString;
         final String tag = getTag(false);

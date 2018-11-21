@@ -1,7 +1,8 @@
-package com.hp.libcore.http;
+package com.hp.libcore.http.log;
 
 import android.support.annotation.Nullable;
 
+import com.hp.libcore.http.HttpHandler;
 import com.hp.libcore.http.log.FormatPrinter;
 import com.hp.libcore.tools.CharacterUtil;
 import com.hp.libcore.tools.UrlEncoderUtil;
@@ -28,10 +29,11 @@ import okio.BufferedSource;
 import timber.log.Timber;
 
 /**
- * Retrofit网络请求拦截器
+ * Retrofit网络请求日志拦截器
+ * 加在NetworkInterceptor中网络的转发/重定向也能捕捉
  */
 @Singleton
-public class RequestInterceptor implements Interceptor {
+public class LoggerInterceptor implements Interceptor {
     @Inject
     @Nullable
     HttpHandler mHandler;
@@ -63,7 +65,7 @@ public class RequestInterceptor implements Interceptor {
     }
 
     @Inject
-    public RequestInterceptor() { }
+    public LoggerInterceptor() { }
 
     @Override
     public Response intercept(Chain chain) throws IOException {

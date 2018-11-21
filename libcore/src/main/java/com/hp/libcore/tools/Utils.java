@@ -9,13 +9,14 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
-
 import com.hp.libcore.base.IApp;
 import com.hp.libcore.di.AppComponent;
 
@@ -58,16 +59,26 @@ public class Utils {
      * 显示Toast
      * @param content
      */
+    private static Handler handler;
     public static void toast(CharSequence content) {
-        if (TextUtils.isEmpty(content))
-            return;
-        if (mToast == null) {
-            mToast = Toast.makeText(Utils.getAPPContext(), content, Toast.LENGTH_SHORT);
-        } else {
-            mToast.setText(content);
-            mToast.setDuration(Toast.LENGTH_SHORT);
+        if (handler == null){
+            handler = new Handler(Looper.getMainLooper());
         }
-        mToast.show();
+        mToast.cancel();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (TextUtils.isEmpty(content))
+                    return;
+                if (mToast == null) {
+                    mToast = Toast.makeText(Utils.getAPPContext(), content, Toast.LENGTH_SHORT);
+                } else {
+                    mToast.setText(content);
+                    mToast.setDuration(Toast.LENGTH_SHORT);
+                }
+                mToast.show();
+            }
+        },100);
     }
 
     /**
@@ -103,7 +114,11 @@ public class Utils {
         try {
             PackageManager manager = context.getPackageManager();
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-            return info.getLongVersionCode();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                return info.getLongVersionCode();
+            }else {
+                return info.versionCode;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
