@@ -8,9 +8,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,6 +29,18 @@ import com.hp.libcore.di.AppComponent;
 public class Utils {
     private static Context context;
     private static Toast mToast;
+    private static Handler handler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            //先取消正在显示的Toast
+            if (mToast != null) {
+                mToast.cancel();
+            }
+            CharSequence message = (CharSequence) msg.obj;
+            mToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+            mToast.show();
+        }
+    };
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -57,37 +72,20 @@ public class Utils {
 
     /**
      * 显示Toast
-     * @param content
+     * @param message
      */
-    private static Handler handler;
-    public static void toast(CharSequence content) {
-        if (handler == null){
-            handler = new Handler(Looper.getMainLooper());
+    public static void toast(CharSequence message) {
+        if (!TextUtils.isEmpty(message)) {
+            handler.sendMessage(handler.obtainMessage(0, message));
         }
-        mToast.cancel();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (TextUtils.isEmpty(content))
-                    return;
-                if (mToast == null) {
-                    mToast = Toast.makeText(Utils.getAPPContext(), content, Toast.LENGTH_SHORT);
-                } else {
-                    mToast.setText(content);
-                    mToast.setDuration(Toast.LENGTH_SHORT);
-                }
-                mToast.show();
-            }
-        },100);
     }
 
     /**
-     * 取消Toast
+     * 页面无交互时主动取消Toast
      */
-    public static void cancelToast() {
+    public static void cancelToast(){
         if (mToast != null) {
             mToast.cancel();
-            mToast = null;
         }
     }
 
@@ -228,9 +226,7 @@ public class Utils {
      * @param view view
      * @return Activity
      */
-    public static
-    @NonNull
-    Activity getAttachActivity(View view) {
+    public static Activity getAttachActivity(View view) {
         Context context = view.getContext();
         while (context instanceof ContextWrapper) {
             if (context instanceof Activity) {
@@ -241,4 +237,18 @@ public class Utils {
         throw new IllegalStateException("View " + view + " is not attached to an Activity");
     }
 
+    /**
+     * 判断网络是否可用
+     * @return
+     */
+    public static boolean isNetConnect() {
+        if (context != null) {
+            ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = connManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
 }

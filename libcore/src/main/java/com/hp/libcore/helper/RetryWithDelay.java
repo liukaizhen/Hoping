@@ -1,6 +1,5 @@
 package com.hp.libcore.helper;
 
-import android.util.Log;
 import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -9,15 +8,16 @@ import io.reactivex.functions.Function;
 
 /**
  * RxJava错误时重试
+ * 被返回的Observable<?>所要发送的事件决定了重订阅是否会发生。
+ * 如果发送的是onCompleted或者onError事件，将不会触发重订阅
+ * 如果这个Observable发射了一项数据，它就重新订阅原来的数据源
  *
- * 引用自: <a href="https://github.com/JessYanCoding"/>
+ * 而 onErrorResumeNext是重发了一个新的数据源(doOnError不能变换)
  */
 public class RetryWithDelay implements Function<Observable<Throwable>, ObservableSource<?>> {
-
-    public final String TAG = this.getClass().getSimpleName();
     private final int maxRetries;
     private final int retryDelaySecond;
-    private int retryCount;
+    private int retryCount = 0;
 
     /**
      * 第一个参数为重试几次,
@@ -37,13 +37,9 @@ public class RetryWithDelay implements Function<Observable<Throwable>, Observabl
                     @Override
                     public ObservableSource<?> apply(@NonNull Throwable throwable) throws Exception {
                         if (++retryCount <= maxRetries) {
-                            // When this Observable calls onNext, the original Observable will be retried (i.e. re-subscribed).
-                            Log.d(TAG, "Observable get error, it will try after " + retryDelaySecond
-                                    + " second, retry count " + retryCount);
                             return Observable.timer(retryDelaySecond,
                                     TimeUnit.SECONDS);
                         }
-                        // Max retries hit. Just pass the error along.
                         return Observable.error(throwable);
                     }
                 });

@@ -7,10 +7,10 @@ import io.reactivex.disposables.Disposable;
  * 处理RxJava异常的观察者
  * @param <T>
  */
-public abstract class ErrorObserverHelper <T> implements Observer<T> {
+public abstract class ErrorObserver<T> implements Observer<T> {
     private IErrorHandler errorHandler;
 
-    public ErrorObserverHelper(IErrorHandler errorHandler) {
+    public ErrorObserver(IErrorHandler errorHandler) {
         this.errorHandler = errorHandler;
     }
 

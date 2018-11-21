@@ -48,6 +48,11 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
         initialize(savedInstanceState);
     }
 
+    @Override
+    protected void onPause() {
+        Utils.cancelToast();
+        super.onPause();
+    }
 
     @Override
     protected void onDestroy() {
@@ -56,12 +61,6 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
             mPresenter.onDestroy();//释放资源
         }
         this.mPresenter = null;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Utils.cancelToast();
     }
 
     /**

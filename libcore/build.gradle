@@ -38,11 +38,17 @@ dependencies {
     api ("com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"){
         exclude module: 'support-v4'
     }
+    api "com.android.support:design:$rootProject.supportLibraryVersion"
     api "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     api "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
     testImplementation "junit:junit:$rootProject.ext.junitVersion"
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+
+    //leakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanaryVersion"
+    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$rootProject.leakcanaryVersion"
 
     //timber
     api "com.jakewharton.timber:timber:$rootProject.timberVersion"
@@ -79,6 +85,9 @@ dependencies {
     //butterKnife
     api "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+
+    //smartRefreshLayout
+    api "com.scwang.smartrefresh:SmartRefreshLayout:$rootProject.smartVersion"
 
 }
 

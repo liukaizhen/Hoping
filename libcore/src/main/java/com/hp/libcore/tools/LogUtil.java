@@ -24,7 +24,7 @@ public class LogUtil {
 
     public static void debugInfo(String tag, String msg) {
         if (!isLog || TextUtils.isEmpty(msg)) return;
-        Log.e(tag, msg);
+        Log.d(tag, msg);
 
     }
 

@@ -3,7 +3,6 @@ package com.hp.libcore.http.log;
 import android.support.annotation.Nullable;
 
 import com.hp.libcore.http.HttpHandler;
-import com.hp.libcore.http.log.FormatPrinter;
 import com.hp.libcore.tools.CharacterUtil;
 import com.hp.libcore.tools.UrlEncoderUtil;
 import com.hp.libcore.tools.ZipHelper;

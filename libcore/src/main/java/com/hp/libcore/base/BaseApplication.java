@@ -9,6 +9,7 @@ import com.hp.libcore.BuildConfig;
 import com.hp.libcore.di.AppComponent;
 import com.hp.libcore.tools.PredictUtil;
 import com.hp.libcore.tools.Utils;
+import com.squareup.leakcanary.LeakCanary;
 
 public class BaseApplication extends MultiDexApplication implements IApp{
     private AppDelegate mAppDelegate;
@@ -32,6 +33,12 @@ public class BaseApplication extends MultiDexApplication implements IApp{
      * 初始化相关配置
      */
     private void initTodo() {
+        //leakCanary初始化
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+
         //ARouter初始化
         if (BuildConfig.DEBUG){
             ARouter.openDebug();
