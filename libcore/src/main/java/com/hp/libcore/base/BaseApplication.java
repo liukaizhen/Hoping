@@ -8,7 +8,6 @@ import com.hp.libcore.AppDelegate;
 import com.hp.libcore.BuildConfig;
 import com.hp.libcore.di.AppComponent;
 import com.hp.libcore.tools.PredictUtil;
-import com.hp.libcore.tools.Utils;
 import com.squareup.leakcanary.LeakCanary;
 
 public class BaseApplication extends MultiDexApplication implements IApp{
@@ -24,8 +23,8 @@ public class BaseApplication extends MultiDexApplication implements IApp{
     @Override
     public void onCreate() {
         super.onCreate();
-        Utils.init(this);
-        if (mAppDelegate != null) this.mAppDelegate.onCreate(this);
+        if (mAppDelegate != null)
+            this.mAppDelegate.onCreate(this);
         initTodo();
     }
 

@@ -2,8 +2,12 @@ package com.hp.libcore;
 
 import android.app.Application;
 import android.content.Context;
-import androidx.annotation.NonNull;
+import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
 import com.hp.libcore.base.IApp;
 import com.hp.libcore.config.GlobalConfigModule;
 import com.hp.libcore.config.IConfig;
@@ -11,6 +15,9 @@ import com.hp.libcore.config.ManifestParser;
 import com.hp.libcore.di.AppComponent;
 import com.hp.libcore.di.DaggerAppComponent;
 import com.hp.libcore.tools.PredictUtil;
+import com.hp.libcore.tools.Utils;
+import com.tmall.wireless.tangram.TangramBuilder;
+import com.tmall.wireless.tangram.util.IInnerImageSetter;
 
 import java.util.List;
 
@@ -27,6 +34,7 @@ public final class AppDelegate implements IApp {
     }
 
     public void onCreate(@NonNull Application application){
+        Utils.init(application);
         this.mApplication = application;
         mAppComponent = DaggerAppComponent
                 .builder()
@@ -35,6 +43,19 @@ public final class AppDelegate implements IApp {
                 .build();
         mAppComponent.inject(this);
         this.mConfigs = null;
+        initTangram();
+    }
+
+    /**
+     * 初始化Ali七巧板
+     */
+    private void initTangram() {
+        TangramBuilder.init(mApplication, new IInnerImageSetter() {
+            @Override
+            public <IMAGE extends ImageView> void doLoadImageUrl(@NonNull IMAGE view, @Nullable String url) {
+                Glide.with(mApplication).load(url).into(view);
+            }
+        },ImageView.class);
     }
 
     /**

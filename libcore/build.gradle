@@ -38,6 +38,7 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.0.2'
     api 'com.google.android.material:material:1.1.0-alpha01'
     api 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
@@ -82,6 +83,9 @@ dependencies {
     //butterKnife
     api "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+
+    //tangram-android
+    api "com.alibaba.android:tangram:$rootProject.tangramVersion"
 
     //smartRefreshLayout
     api "com.scwang.smartrefresh:SmartRefreshLayout:$rootProject.smartVersion"

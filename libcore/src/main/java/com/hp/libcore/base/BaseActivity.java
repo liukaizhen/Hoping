@@ -7,6 +7,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.hp.libcore.mvp.IPresenter;
 import com.hp.libcore.tools.Utils;
+import com.tmall.wireless.tangram.TangramBuilder;
+import com.tmall.wireless.tangram.TangramEngine;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
+    protected TangramEngine mEngine;//阿里七巧板engine
     @Nullable
     protected P mPresenter;//当前页面逻辑简单,Presenter 可以为 null
 
@@ -43,9 +46,18 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layoutID());
+        initTodo();
+        initialize(savedInstanceState);
+    }
+
+    /**
+     * 该做的初始化
+     */
+    private void initTodo(){
         ButterKnife.bind(this);
         mPresenter = createPresenter();
-        initialize(savedInstanceState);
+        mEngine = TangramBuilder.newInnerBuilder(this)
+                .build();
     }
 
     @Override
