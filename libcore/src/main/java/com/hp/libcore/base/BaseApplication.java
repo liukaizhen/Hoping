@@ -1,8 +1,8 @@
 package com.hp.libcore.base;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.multidex.MultiDexApplication;
+import androidx.annotation.NonNull;
+import androidx.multidex.MultiDexApplication;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hp.libcore.AppDelegate;
 import com.hp.libcore.BuildConfig;

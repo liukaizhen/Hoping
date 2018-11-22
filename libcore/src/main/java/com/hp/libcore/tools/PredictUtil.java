@@ -1,6 +1,6 @@
 package com.hp.libcore.tools;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * 异常预判

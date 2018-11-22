@@ -2,7 +2,7 @@ package com.hp.libcore.di;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

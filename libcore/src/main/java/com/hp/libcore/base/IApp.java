@@ -1,6 +1,6 @@
 package com.hp.libcore.base;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.hp.libcore.di.AppComponent;
 

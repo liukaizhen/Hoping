@@ -1,7 +1,7 @@
 package com.hp.libcore.mvp;
 
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.hp.libcore.tools.PredictUtil;
 

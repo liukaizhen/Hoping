@@ -1,6 +1,6 @@
 package com.erly.simpleapp;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.os.Bundle;
 import android.view.View;
 

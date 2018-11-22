@@ -2,7 +2,7 @@ package com.hp.libcore;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.hp.libcore.base.IApp;
 import com.hp.libcore.config.GlobalConfigModule;
