@@ -43,7 +43,7 @@ ext{
     arouterApiVersion = '1.4.1'
     arouterCompilerVerson = '1.2.2'
     butterknifeVersion = '9.0.0-rc1'
-    tangramVersion = '2.0.5@aar'
+    vlayoutVersion = '1.2.18@aar'
     smartVersion = '1.0.5.1'
 }
 

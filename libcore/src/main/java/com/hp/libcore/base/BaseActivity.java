@@ -6,9 +6,6 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.hp.libcore.mvp.IPresenter;
-import com.hp.libcore.tools.Utils;
-import com.tmall.wireless.tangram.TangramBuilder;
-import com.tmall.wireless.tangram.TangramEngine;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +14,8 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
-    protected TangramEngine mEngine;//阿里七巧板engine
-    @Nullable
-    protected P mPresenter;//当前页面逻辑简单,Presenter 可以为 null
+    @Nullable //当前页面逻辑简单,Presenter 可以为 null
+    protected P mPresenter;
 
     /**
      * 返回当前页面布局
@@ -56,14 +52,6 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
     private void initTodo(){
         ButterKnife.bind(this);
         mPresenter = createPresenter();
-        mEngine = TangramBuilder.newInnerBuilder(this)
-                .build();
-    }
-
-    @Override
-    protected void onPause() {
-        Utils.cancelToast();
-        super.onPause();
     }
 
     @Override

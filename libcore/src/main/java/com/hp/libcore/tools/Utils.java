@@ -14,7 +14,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -77,15 +76,6 @@ public class Utils {
     public static void toast(CharSequence message) {
         if (!TextUtils.isEmpty(message)) {
             handler.sendMessage(handler.obtainMessage(0, message));
-        }
-    }
-
-    /**
-     * 页面无交互时主动取消Toast
-     */
-    public static void cancelToast(){
-        if (mToast != null) {
-            mToast.cancel();
         }
     }
 

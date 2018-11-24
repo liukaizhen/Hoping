@@ -84,8 +84,8 @@ dependencies {
     api "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
 
-    //tangram-android
-    api "com.alibaba.android:tangram:$rootProject.tangramVersion"
+    //vLayout
+    api ("com.alibaba.android:vlayout:$rootProject.vlayoutVersion") { transitive = true }
 
     //smartRefreshLayout
     api "com.scwang.smartrefresh:SmartRefreshLayout:$rootProject.smartVersion"

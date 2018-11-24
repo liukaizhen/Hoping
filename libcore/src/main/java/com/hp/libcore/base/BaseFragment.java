@@ -30,11 +30,21 @@ public abstract class BaseFragment<P extends IPresenter> extends RxFragment {
      */
     protected abstract void initialize(@Nullable Bundle savedInstanceState);
 
+    /**
+     * 子页面覆盖该方法创建Presenter
+     * 如果页面简单不需要Presenter可以不覆盖
+     * @return
+     */
+    protected P createPresenter(){
+        return null;
+    };
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(layoutID(), container, false);
         unbinder = ButterKnife.bind(this, rootView);
+        mPresenter = createPresenter();
         initialize(savedInstanceState);
         return rootView;
     }
